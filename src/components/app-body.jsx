@@ -5,6 +5,7 @@ import CovidPage from "./covid-page";
 class AppBody extends Component {
   state = {};
   render() {
+    //Determine which page to render
     if (this.props.page === "home") {
       return <HomePage />;
     } else if (this.props.page === "covid") {
