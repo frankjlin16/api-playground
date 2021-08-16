@@ -21,6 +21,16 @@ class CovidPage extends Component {
     axios
       .request(options)
       .then((response) => {
+        //TODO: Format response that is a number to include commas
+        const res = {};
+        for (const data in response.data[0]) {
+          let num = 0;
+          if (typeof(response.data[0][data]) === "number") {
+            num = response.data[0][data].toLocaleString("en-US");
+          }
+          console.log(num);
+        }
+        //Set state of current component
         this.setState({ response: response.data[0] });
       })
       .catch(function (error) {
