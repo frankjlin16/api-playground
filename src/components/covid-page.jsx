@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import CovidCard from "./covid-card";
+
 class CovidPage extends Component {
   state = {
     response: {},
@@ -52,15 +54,7 @@ class CovidPage extends Component {
             </p>
           </div>
         </div>
-        <div className="m-3">
-          <h2>{this.state.response.country}</h2>
-          <ul>
-            <li>Confirmed: {this.state.response.confirmed}</li>
-            <li>Recovered: {this.state.response.recovered}</li>
-            <li>Critical: {this.state.response.critical}</li>
-            <li>Deaths: {this.state.response.deaths}</li>
-          </ul>
-        </div>
+        <CovidCard response={this.state.response}/>
       </React.Fragment>
     );
   }
