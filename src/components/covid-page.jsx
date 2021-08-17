@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import CovidCard from "./covid-card";
+import CovidSearch from "./covid-search";
 
 class CovidPage extends Component {
   state = {
@@ -27,7 +28,7 @@ class CovidPage extends Component {
         const res = {};
         for (const data in response.data[0]) {
           let num = 0;
-          if (typeof(response.data[0][data]) === "number") {
+          if (typeof response.data[0][data] === "number") {
             num = response.data[0][data].toLocaleString("en-US");
           }
           console.log(num);
@@ -54,7 +55,8 @@ class CovidPage extends Component {
             </p>
           </div>
         </div>
-        <CovidCard response={this.state.response}/>
+        <CovidSearch />
+        <CovidCard response={this.state.response} />
       </React.Fragment>
     );
   }
