@@ -4,15 +4,15 @@ class CovidSearch extends Component {
   state = {};
   render() {
     return (
-      <div class="container">
-        <form class="d-flex">
+      <div className="container">
+        <form className="d-flex">
           <input
-            class="form-control me-2"
-            type="search"
+            className="form-control me-2"
+            type="text"
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn btn-outline-success" type="submit">
+          <button className="btn btn-outline-success">
             Search
           </button>
         </form>

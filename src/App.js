@@ -10,14 +10,14 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar page={this.state.page} changePage={this.changePage} />
+        <Navbar page={this.state.page} onPageChange={this.handlePageChange} />
         <AppBody page={this.state.page} />
       </React.Fragment>
     );
   }
 
   //Changes the state page based on navbar changes.
-  changePage = (page) => {
+  handlePageChange = (page) => {
     this.setState({ page });
   };
 }
