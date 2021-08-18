@@ -44,6 +44,7 @@ class CovidPage extends Component {
     this.apiRequest(value);
   }
 
+  //Date is cleaned by adding commas to numbers
   dataCleaning(response) {
     const res = {};
     for (const data in response.data[0]) {
