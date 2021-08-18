@@ -41,6 +41,27 @@ class CovidPage extends Component {
       });
   };
 
+  handleSubmit = (value) => {
+    const options = {
+      method: "GET",
+      url: "https://covid-19-data.p.rapidapi.com/country",
+      params: { name: value, format: "json" },
+      headers: {
+        "x-rapidapi-key": "547ec5b5e0mshb62bcb250461234p109f16jsn629a4642ecbe",
+        "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        //Set state of current component
+        this.setState({ response: response.data[0] });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -55,7 +76,7 @@ class CovidPage extends Component {
             </p>
           </div>
         </div>
-        <CovidSearch />
+        <CovidSearch onSubmit={this.handleSubmit}/>
         <CovidCard response={this.state.response} />
       </React.Fragment>
     );

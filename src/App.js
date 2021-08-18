@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import Navbar from "./components/navbar";
 import AppBody from "./components/app-body";
 class App extends Component {
-  state = {
-    page: "home",
-  };
+  state = {};
+
+  constructor(props) {
+    super(props);
+    this.state = { page: "home" };
+  }
 
   //App is divided into two different sections: Navbar and AppBody.
   render() {
