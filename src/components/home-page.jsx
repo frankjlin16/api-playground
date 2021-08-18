@@ -12,7 +12,7 @@ class HomePage extends Component {
             It all began at a hackathon in 2015. RapidAPI was made by developers
             for developers so they could have one place to access APIs and
             Microservices and build applications more efficiently and easily.
-            Today, RapidAPI is the world’s largest API Hub where almost 3
+            Today, RapidAPI is the world's largest API Hub where almost 3
             million developers can find, test, and connect to tens of thousands
             of APIs — all with a single account, single API key, and single SDK.
           </p>
