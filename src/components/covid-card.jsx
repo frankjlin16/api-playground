@@ -4,8 +4,7 @@ class CovidCard extends Component {
   state = {};
   render() {
     const { response } = this.props;
-
-    if (response === undefined) {
+    if (response.country === undefined) {
       return (
         <div className="alert alert-warning m-4" role="alert">
           Country can't be found. Please try again later.
