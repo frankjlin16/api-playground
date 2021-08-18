@@ -6,28 +6,39 @@ class CovidSearch extends Component {
   };
 
   handleChange = (event) => {
-      this.setState({value: event.target.value})
-  }
+    this.setState({ value: event.target.value });
+  };
 
   handleSearchSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state.value);
+    if (this.state.value !== "") {
+      this.props.onSubmit(this.state.value);
+    }
   };
-
 
   render() {
     return (
       <div className="container">
-        <form className="d-flex" onSubmit={this.handleSearchSubmit}>
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <input type="submit" className="btn btn-outline-success" />
+        <form
+          className="row justify-content-center"
+          onSubmit={this.handleSearchSubmit}
+        >
+          <div className="col-7">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="col-2">
+            <input
+              type="submit"
+              className="form-control btn btn-outline-success"
+            />
+          </div>
         </form>
       </div>
     );
