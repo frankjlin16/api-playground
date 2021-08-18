@@ -11,64 +11,49 @@ class CovidPage extends Component {
 
   // When component mounts, request USA lastest COVID data from API
   componentDidMount = () => {
-    const options = {
-      method: "GET",
-      url: "https://covid-19-data.p.rapidapi.com/country",
-      params: { name: "USA", format: "json" },
-      headers: {
-        "x-rapidapi-key": "547ec5b5e0mshb62bcb250461234p109f16jsn629a4642ecbe",
-        "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        //Add commas to numbers
-        const res = {};
-        for (const data in response.data[0]) {
-          let resData = response.data[0][data];
-          if (typeof response.data[0][data] === "number") {
-            resData = response.data[0][data].toLocaleString("en-US");
-          }
-          res[data] = resData
-        }
-        //Set state of current component
-        this.setState({ response: res });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    this.apiRequest("USA")
   };
 
-  handleSubmit = (value) => {
+  //Function for fetching COVID data from API
+  apiRequest = (country) => {
     const options = {
       method: "GET",
       url: "https://covid-19-data.p.rapidapi.com/country",
-      params: { name: value, format: "json" },
+      params: { name: country, format: "json" },
       headers: {
         "x-rapidapi-key": "547ec5b5e0mshb62bcb250461234p109f16jsn629a4642ecbe",
         "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
       },
     };
+
     axios
       .request(options)
       .then((response) => {
         //Add commas to numbers
-        const res = {};
-        for (const data in response.data[0]) {
-          let resData = response.data[0][data];
-          if (typeof response.data[0][data] === "number") {
-            resData = response.data[0][data].toLocaleString("en-US");
-          }
-          res[data] = resData
-        }
+        const res = this.dataCleaning(response);
         //Set state of current component
         this.setState({ response: res });
       })
       .catch(function (error) {
         console.error(error);
       });
+  }
+
+  //Request data from API with search submits
+  handleSubmit = (value) => {
+    this.apiRequest(value);
+  }
+
+  dataCleaning(response) {
+    const res = {};
+    for (const data in response.data[0]) {
+      let resData = response.data[0][data];
+      if (typeof response.data[0][data] === "number") {
+        resData = response.data[0][data].toLocaleString("en-US");
+      }
+      res[data] = resData;
+    }
+    return res;
   }
 
   render() {
