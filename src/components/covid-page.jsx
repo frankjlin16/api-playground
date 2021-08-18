@@ -30,7 +30,7 @@ class CovidPage extends Component {
       .request(options)
       .then((response) => {
         //Add commas to numbers
-        const res = this.dataCleaning(response);
+        const res = this.dataCleaning(response.data[0]);
         //Set state of current component
         this.setState({ response: res });
       })
@@ -47,15 +47,16 @@ class CovidPage extends Component {
   //Date is cleaned by adding commas to numbers
   dataCleaning(response) {
     const res = {};
-    for (const data in response.data[0]) {
-      let resData = response.data[0][data];
-      if (typeof response.data[0][data] === "number") {
-        resData = response.data[0][data].toLocaleString("en-US");
+    for (const data in response) {
+      let resData = response[data];
+      if (typeof response[data] === "number") {
+        resData = response[data].toLocaleString("en-US");
       }
       res[data] = resData;
     }
     return res;
   }
+  
 
   render() {
     return (
