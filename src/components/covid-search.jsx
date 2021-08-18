@@ -36,6 +36,7 @@ class CovidSearch extends Component {
           <div className="col-2">
             <input
               type="submit"
+              value="Search"
               className="form-control btn btn-outline-success"
             />
           </div>
