@@ -24,17 +24,17 @@ class CovidPage extends Component {
     axios
       .request(options)
       .then((response) => {
-        //TODO: Format response that is a number to include commas
+        //Add commas to numbers
         const res = {};
         for (const data in response.data[0]) {
-          let num = 0;
+          let resData = response.data[0][data];
           if (typeof response.data[0][data] === "number") {
-            num = response.data[0][data].toLocaleString("en-US");
+            resData = response.data[0][data].toLocaleString("en-US");
           }
-          console.log(num);
+          res[data] = resData
         }
         //Set state of current component
-        this.setState({ response: response.data[0] });
+        this.setState({ response: res });
       })
       .catch(function (error) {
         console.error(error);
@@ -54,8 +54,17 @@ class CovidPage extends Component {
     axios
       .request(options)
       .then((response) => {
+        //Add commas to numbers
+        const res = {};
+        for (const data in response.data[0]) {
+          let resData = response.data[0][data];
+          if (typeof response.data[0][data] === "number") {
+            resData = response.data[0][data].toLocaleString("en-US");
+          }
+          res[data] = resData
+        }
         //Set state of current component
-        this.setState({ response: response.data[0] });
+        this.setState({ response: res });
       })
       .catch(function (error) {
         console.error(error);
