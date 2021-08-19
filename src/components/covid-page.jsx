@@ -14,8 +14,9 @@ class CovidPage extends Component {
     this.apiRequest("USA")
   };
 
+
   //Function for fetching COVID data from API
-  apiRequest = (country) => {
+  apiRequest = async (country) => {
     const options = {
       method: "GET",
       url: "https://covid-19-data.p.rapidapi.com/country",
@@ -26,7 +27,8 @@ class CovidPage extends Component {
       },
     };
 
-    axios
+
+    await axios
       .request(options)
       .then((response) => {
         //Add commas to numbers
