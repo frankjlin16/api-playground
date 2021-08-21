@@ -12,30 +12,58 @@ class CovidPage extends Component {
 
   // When component mounts, request USA lastest COVID data from API
   componentDidMount = () => {
-    this.apiRequest("USA");
+    this.covidAPIRequest("USA");
   };
 
   //Function for fetching COVID data from API
-  //TODO: Change API (https://rapidapi.com/api-sports/api/covid-193/)
-  apiRequest = async (country) => {
-    const options = {
+  covidAPIRequest = async (country, today = true) => {
+    //Get today's date
+    if (today === true) {
+      var date = new Date();
+      var dd = String(date.getDate()).padStart(2, "0");
+      var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var yyyy = date.getFullYear();
+      date = yyyy + "-" + mm + "-" + dd;
+    } else {
+      var date = today;
+    }
+
+    var options = {
       method: "GET",
-      url: "https://covid-19-data.p.rapidapi.com/report/country/name",
-      params: { name: country, date: "2020-07-19", format: "json" },
+      url: "https://covid-193.p.rapidapi.com/history",
+      params: { country: country, day: date },
       headers: {
+        "x-rapidapi-host": "covid-193.p.rapidapi.com",
         "x-rapidapi-key": "547ec5b5e0mshb62bcb250461234p109f16jsn629a4642ecbe",
-        "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
       },
     };
 
     await axios
       .request(options)
       .then((response) => {
-        console.log(response.data[0]);
-        //Add commas to numbers
-        const res = this.dataCleaning(response.data[0]);
-        //Set state of current component
-        this.setState({ response: res });
+        return response.data.response[0];
+      })
+      .then((response) => {
+        console.log(response);
+        const country = response.country;
+        const date = response.day;
+        const { active, critical, recovered, total } = this.dataCleaning(
+          response.cases
+        );
+        const confirmed = total;
+        const deaths = this.dataCleaning(response.deaths).total;
+        this.setState({
+          response: {
+            country,
+            date,
+            active,
+            critical,
+            recovered,
+            confirmed,
+            deaths,
+          },
+        });
+        console.log(this.state);
       })
       .catch(function (error) {
         console.error(error);
@@ -44,7 +72,7 @@ class CovidPage extends Component {
 
   //Request data from API with search submits
   handleSubmit = (value) => {
-    this.apiRequest(value);
+    this.covidAPIRequest(value);
   };
 
   //Date is cleaned by adding commas to numbers

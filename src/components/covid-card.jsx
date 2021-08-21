@@ -4,7 +4,7 @@ class CovidCard extends Component {
   state = {};
   render() {
     const { response } = this.props;
-    
+
     if (response.country === undefined) {
       return (
         <div className="alert alert-warning m-4" role="alert">
@@ -24,6 +24,12 @@ class CovidCard extends Component {
               Confirmed:{" "}
               <span className="badge bg-primary rounded-pill">
                 {response.confirmed}
+              </span>
+            </li>
+            <li className="list-group-item">
+              Active:{" "}
+              <span className="badge bg-primary rounded-pill">
+                {response.active}
               </span>
             </li>
             <li className="list-group-item">
