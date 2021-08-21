@@ -3,6 +3,7 @@ import axios from "axios";
 
 import CovidCard from "./covid-card";
 import CovidSearch from "./covid-search";
+import Chart from "react-google-charts";
 
 class CovidPage extends Component {
   state = {
@@ -11,26 +12,25 @@ class CovidPage extends Component {
 
   // When component mounts, request USA lastest COVID data from API
   componentDidMount = () => {
-    this.apiRequest("USA")
+    this.apiRequest("USA");
   };
-
 
   //Function for fetching COVID data from API
   apiRequest = async (country) => {
     const options = {
       method: "GET",
-      url: "https://covid-19-data.p.rapidapi.com/country",
-      params: { name: country, format: "json" },
+      url: "https://covid-19-data.p.rapidapi.com/report/country/name",
+      params: { name: country, date: "2020-07-19", format: "json" },
       headers: {
         "x-rapidapi-key": "547ec5b5e0mshb62bcb250461234p109f16jsn629a4642ecbe",
         "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
       },
     };
 
-
     await axios
       .request(options)
       .then((response) => {
+        console.log(response.data[0]);
         //Add commas to numbers
         const res = this.dataCleaning(response.data[0]);
         //Set state of current component
@@ -39,12 +39,12 @@ class CovidPage extends Component {
       .catch(function (error) {
         console.error(error);
       });
-  }
+  };
 
   //Request data from API with search submits
   handleSubmit = (value) => {
     this.apiRequest(value);
-  }
+  };
 
   //Date is cleaned by adding commas to numbers
   dataCleaning(response) {
@@ -58,7 +58,6 @@ class CovidPage extends Component {
     }
     return res;
   }
-  
 
   render() {
     return (
@@ -74,8 +73,38 @@ class CovidPage extends Component {
             </p>
           </div>
         </div>
-        <CovidSearch onSubmit={this.handleSubmit}/>
+        <CovidSearch onSubmit={this.handleSubmit} />
         <CovidCard response={this.state.response} />
+        {/* <Chart
+          width={"600px"}
+          height={"400px"}
+          chartType="LineChart"
+          loader={<div>Loading Chart</div>}
+          data={[
+            ["time", "dogs"],
+            [0, 0],
+            [1, 10],
+            [2, 23],
+            [3, 17],
+            [4, 18],
+            [5, 9],
+            [6, 11],
+            [7, 27],
+            [8, 33],
+            [9, 40],
+            [10, 32],
+            [11, 35],
+          ]}
+          options={{
+            hAxis: {
+              title: "Time",
+            },
+            vAxis: {
+              title: "Popularity",
+            },
+          }}
+          rootProps={{ "data-testid": "1" }}
+        /> */}
       </React.Fragment>
     );
   }
