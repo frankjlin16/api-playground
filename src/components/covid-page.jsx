@@ -17,7 +17,7 @@ class CovidPage extends Component {
 
   //Function for fetching COVID data from API
   covidAPIRequest = async (country, today = true) => {
-    //Get today's date
+    //If today is true, use today's date
     if (today === true) {
       var date = new Date();
       var dd = String(date.getDate()).padStart(2, "0");
@@ -25,7 +25,7 @@ class CovidPage extends Component {
       var yyyy = date.getFullYear();
       date = yyyy + "-" + mm + "-" + dd;
     } else {
-      var date = today;
+      date = today;
     }
 
     var options = {
@@ -44,7 +44,6 @@ class CovidPage extends Component {
         return response.data.response[0];
       })
       .then((response) => {
-        console.log(response);
         const country = response.country;
         const date = response.day;
         const { active, critical, recovered, total } = this.dataCleaning(
@@ -63,7 +62,6 @@ class CovidPage extends Component {
             deaths,
           },
         });
-        console.log(this.state);
       })
       .catch(function (error) {
         console.error(error);
@@ -104,7 +102,7 @@ class CovidPage extends Component {
         </div>
         <CovidSearch onSubmit={this.handleSubmit} />
         <CovidCard response={this.state.response} />
-        {/* <Chart
+        <Chart
           width={"600px"}
           height={"400px"}
           chartType="LineChart"
@@ -133,7 +131,7 @@ class CovidPage extends Component {
             },
           }}
           rootProps={{ "data-testid": "1" }}
-        /> */}
+        />
       </React.Fragment>
     );
   }

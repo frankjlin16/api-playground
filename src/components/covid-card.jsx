@@ -18,7 +18,7 @@ class CovidCard extends Component {
       "
       >
         <div className="card-body">
-          <h2 className="card-title text-center">{response.country} Latest</h2>
+          <h2 className="card-title text-center">{response.country} Latest <span class="badge bg-secondary">{response.date}</span></h2>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
               Confirmed:{" "}
