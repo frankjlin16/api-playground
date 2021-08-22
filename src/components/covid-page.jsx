@@ -33,8 +33,8 @@ class CovidPage extends Component {
       url: "https://covid-193.p.rapidapi.com/history",
       params: { country: country, day: date },
       headers: {
-        "x-rapidapi-host": "covid-193.p.rapidapi.com",
-        "x-rapidapi-key": "547ec5b5e0mshb62bcb250461234p109f16jsn629a4642ecbe",
+        "x-rapidapi-host": process.env.REACT_APP_COVID_HOST,
+        "x-rapidapi-key": process.env.REACT_APP_COVID_API_KEY,
       },
     };
 
